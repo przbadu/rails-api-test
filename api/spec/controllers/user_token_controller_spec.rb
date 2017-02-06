@@ -24,12 +24,11 @@ RSpec.describe UserTokenController do
     context 'check valid response' do
       before do
         post :create, params: {auth: {email: user.email, password: user.password}}
-        @res = json(response.body)
-        @decoded = decode_jwt @res['jwt']
+        @decoded = decode_jwt last_response['jwt']
       end
 
       it 'should return JWT' do
-        expect(@res).to eq('jwt' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0ODMzNTE1MDAsInN1YiI6MX0.fPrB6fxRFhiTrut6Fvz5dwXL6Dmp7bOmJ9kA3Jhd7Io')
+        expect(last_response).to include_json(jwt: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0ODMzNTE1MDAsInN1YiI6MX0.fPrB6fxRFhiTrut6Fvz5dwXL6Dmp7bOmJ9kA3Jhd7Io')
       end
 
       it 'should have exp and sub payload' do

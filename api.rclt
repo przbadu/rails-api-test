@@ -24,8 +24,16 @@ Content-Type: application/json
 
 # You can replace auth token below with your auth token and everything should still work
 
-:header = <<
+:authenticated_header = <<
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0ODY0NDcwMDIsInN1YiI6MX0.mGYVLFoU5uyXwvatAuXHGW8qiJ0C9mGM4_nB6aj-xeY
 
 # Authorized Resources
+
+# Get list of users
+GET :api_host/users
+:authenticated_header
+
+# Get user with id
+GET :api_host/users/1
+:authenticated_header
