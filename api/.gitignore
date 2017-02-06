@@ -20,3 +20,8 @@ tmp/
 
 # Ignore database.yml file
 config/database.yml
+
+# Ignore emacs tmp files
+*~
+*.~
+*#
