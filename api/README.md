@@ -1,24 +1,3 @@
-# README
+# API for ember routes
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+For understanding API routes, please check `api.rclt` file [https://github.com/przbadu/rails-ember-jwt/blob/master/api.rclt](https://github.com/przbadu/rails-ember-jwt/blob/master/api.rclt). This file is configured with [restclient-mode](https://github.com/pashky/restclient.el) for [emacs](https://www.gnu.org/software/emacs/)
