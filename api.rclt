@@ -1,0 +1,31 @@
+# This file is for emacs restclient-mode
+#
+# For more information:
+# https://www.youtube.com/watch?v=fTvQTMOGJaw
+#
+# Author: przbadu
+#
+
+# change your api host (production or development url)
+:api_host = http://api.dev
+
+# Sign up user to server
+POST :api_host/users
+Content-Type: application/json
+{"user": {"email": "test@example.com", "password": "password", "first_name": "test", "last_name": "user"}}
+#
+
+
+# Get token from server
+POST :api_host/login
+Content-Type: application/json
+{"auth": {"email": "test@example.com", "password": "password"}}
+#
+
+# You can replace auth token below with your auth token and everything should still work
+
+:header = <<
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0ODY0NDcwMDIsInN1YiI6MX0.mGYVLFoU5uyXwvatAuXHGW8qiJ0C9mGM4_nB6aj-xeY
+
+# Authorized Resources
