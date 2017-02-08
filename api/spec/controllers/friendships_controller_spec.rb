@@ -55,4 +55,52 @@ RSpec.describe FriendshipsController, type: :request do
       end
     end
   end
+
+  context '.Accept' do
+    it 'should be unauthorized access' do
+      put "/friendships/#{friend.id}?status=accept"
+      expect(last_status).to eq(401)
+    end
+
+    context '.Authorized' do
+      it 'should accept friendship' do
+        # friend sent me friend request
+        post "/friendships", params: {friendship: {friend_id: user.id}},
+          headers: authenticated_header(friend)
+
+        # I am accepting friend's request
+        put "/friendships/#{friend.id}?status=accept", headers: authenticated_header(user)
+
+        expect(last_response).to include_json(success: 'Friend request accepted')
+        expect(Friendship.count).to eq(1)
+        expect(Friendship.last.user_id).to eq(friend.id)
+        expect(Friendship.last.friend_id).to eq(user.id)
+        expect(Friendship.last.status).to eq("accepted")
+      end
+    end
+  end
+
+  context '.Decline' do
+    it 'should be unauthorized access' do
+      put "/friendships/#{friend.id}?status=decline"
+      expect(last_status).to eq(401)
+    end
+
+    context '.Authorized' do
+      it 'should decline friendship' do
+        # friend sent me friend request
+        post '/friendships', params: {friendship: {friend_id: user.id}},
+          headers: authenticated_header(friend)
+
+        # I am rejecting friend's request
+        put "/friendships/#{friend.id}?status=decline", headers: authenticated_header(user)
+
+        expect(last_response).to include_json(success: 'Friend request declined')
+        expect(Friendship.count).to eq(1)
+        expect(Friendship.last.user_id).to eq(friend.id)
+        expect(Friendship.last.friend_id).to eq(user.id)
+        expect(Friendship.last.status).to eq('declined')
+      end
+    end
+  end
 end

@@ -18,6 +18,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'pry-rails'
 
   # rspec and helpers
   gem 'rspec-rails', '~> 3.5'

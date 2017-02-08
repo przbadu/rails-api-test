@@ -24,7 +24,7 @@ Content-Type: application/json
 
 # You can replace auth token below with your auth token and everything should still work
 
-:authenticated_header = <<
+:authenticated_header_user = <<
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0ODY0NDcwMDIsInN1YiI6MX0.mGYVLFoU5uyXwvatAuXHGW8qiJ0C9mGM4_nB6aj-xeY
 
@@ -32,8 +32,44 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0ODY0NDcwM
 
 # Get list of users
 GET :api_host/users
-:authenticated_header
+:authenticated_header_user
 
 # Get user with id
 GET :api_host/users/1
-:authenticated_header
+:authenticated_header_user
+
+# Friendship
+
+# Create friend
+POST :api_host/users
+Content-Type: application/json
+{"user": {"email": "friend@example.com", "password": "password", "first_name": "friend", "last_name": "user"}}
+#
+
+# send friend request (first user is sending friend request to second user)
+POST :api_host/friendships
+:authenticated_header_user
+{"friendship": {"friend_id": 2}}
+#
+
+# Lets login with second user so that we can accept or reject friendship
+POST :api_host/login
+Content-Type: application/json
+{"auth": {"email": "friend@example.com", "password": "password"}}
+#
+
+:authenticated_header_friend = <<
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0ODY1MjMzNzQsInN1YiI6Mn0.P3Z8SBO2Jqfyjxa-ElcRw-aFmA4tgRfLsJ8ad--lCuo
+
+# accept friend request
+PUT :api_host/friendships/1
+:authenticated_header_friend
+{"status": "accept"}
+#
+
+# reject friend request
+PUT :api_host/friendships/1
+:authenticated_header_friend
+{"status": "decline"}
+#

@@ -19,9 +19,8 @@ ActiveRecord::Schema.define(version: 20170206101314) do
     t.integer  "user_id"
     t.integer  "friend_id"
     t.integer  "status"
-    t.integer  "action_user_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -5,7 +5,7 @@ RSpec.describe UserTokenController do
   after { Timecop.return}
   
   context '.user_token' do
-    let(:user) { create(:user, email: 'user@example.com', password: 'password', first_name: 'test', last_name: 'user')}
+    let(:user) { create(:user, id: 1, email: 'user@example.com', password: 'password', first_name: 'test', last_name: 'user')}
 
     it 'should require auth params' do
       expect {post :create}.to raise_error(ActionController::ParameterMissing)

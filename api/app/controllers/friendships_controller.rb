@@ -12,6 +12,22 @@ class FriendshipsController < ApplicationController
     end
   end
 
+  def update
+    case params[:status]
+    when 'accept'
+      current_user.accept_friend_request!(params[:id])
+      responsee = {success: "Friend request accepted"}
+    when 'decline'
+      current_user.decline_friend_request!(params[:id])
+      responsee = {success: "Friend request declined"}
+    else
+      responsee = {error: "Invalid request"}
+    end
+
+    render json: responsee
+  end
+
+
   def destroy
     @friendship = current_user.friendships.find_by(friend_id: params[:id])
     @friendship.destroy
