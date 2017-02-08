@@ -26,7 +26,7 @@ Content-Type: application/json
 
 :authenticated_header_user = <<
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0ODY0NDcwMDIsInN1YiI6MX0.mGYVLFoU5uyXwvatAuXHGW8qiJ0C9mGM4_nB6aj-xeY
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0ODY2NDcyOTQsInN1YiI6MX0.VeVOWzxBiwxP2A-Is1y5TsMxu5p52iDgdRk0Z6XLftw
 
 # Authorized Resources
 

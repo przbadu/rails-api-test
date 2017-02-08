@@ -13,16 +13,16 @@ RSpec.describe User, type: :model do
   it { should have_many :inverse_friends}
 
   context '.Associations' do
-    let(:user) {create(:user)}
-    let(:friend1) {create(:user)}
-    let(:friend2) {create(:user)}
-    let(:friend3) {create(:user)}
+    let(:user) {create(:user, first_name: '2pac')}
+    let(:friend1) {create(:user, first_name: 'Adi')}
+    let(:friend2) {create(:user, first_name: 'Bob')}
+    let(:friend3) {create(:user, first_name: 'eminem')}
 
     before do
-    @friendship1 =  create(:friendship, user_id: user.id, friend_id: friend1.id, status: :pending)
-    @friendship2 =  create(:friendship, user_id: friend2.id, friend_id: user.id, status: :accepted)
-    @friendship3 =  create(:friendship, user_id: friend2.id, friend_id: friend3.id, status: :declined)
-    @friendship4 = create(:friendship, user_id: user.id, friend_id: friend3.id, status: :accepted)
+      @friendship1 =  create(:friendship, user_id: user.id, friend_id: friend1.id, status: :pending)
+      @friendship2 =  create(:friendship, user_id: friend2.id, friend_id: user.id, status: :accepted)
+      @friendship3 =  create(:friendship, user_id: friend2.id, friend_id: friend3.id, status: :declined)
+      @friendship4 = create(:friendship, user_id: user.id, friend_id: friend3.id, status: :accepted)
     end
 
     context '.friendships' do
@@ -52,5 +52,24 @@ RSpec.describe User, type: :model do
       it { expect(friend2.inverse_friends).to eq([])}
       it { expect(friend3.inverse_friends).to eq([user, friend2])}
     end
+
+    context '.accept_friend_request!' do
+      it 'should accept friend request' do
+        @friendship2.declined!
+        expect(@friendship2.status).to eq('declined')
+        user.accept_friend_request!(friend2.id)
+        @friendship2.reload
+        expect(@friendship2.status).to eq('accepted')
+      end
+    end
+
+    context '.decline_friend_request!' do
+      it 'should decline friend request' do
+        user.decline_friend_request!(friend2.id)
+        @friendship2.reload
+        expect(@friendship2.status).to eq('declined')
+      end
+    end
   end
+
 end

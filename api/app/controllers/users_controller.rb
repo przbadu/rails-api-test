@@ -1,13 +1,8 @@
 class UsersController < ApplicationController
   before_action :authenticate_user, except: :create
   
-  def index
-    @user = User.all
-    render json: @user, each_serializer: UserSerializer
-  end
-
   def show
-    render json: user
+    render json: current_user
   end
   
   def create
@@ -24,9 +19,5 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password)
-  end
-
-  def user
-    @user ||= User.find(params[:id])
   end
 end

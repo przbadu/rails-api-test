@@ -57,26 +57,6 @@ RSpec.describe UsersController, type: :request do
     end
   end
 
-  context "#index" do
-    it 'should be unauthorized without jwtoken' do
-      get users_path
-      expect(response.status).to eq(401)
-    end
-
-    context '.authorized' do
-      
-      it 'should return empty array' do
-        @john = create(:user, first_name: 'John')
-        @gary = create(:user, first_name: 'Gary')
-        get users_path, headers: authenticated_header(user)
-        
-        expect(last_response).to include_json([UserSerializer.new(@john).as_json,
-                                               UserSerializer.new(@gary).as_json,
-                                               UserSerializer.new(user).as_json])
-      end
-    end
-  end
-
   context '#Show' do
     it 'should be unauthorized without jwt token' do
       get "/users/#{user.id}"
@@ -88,7 +68,7 @@ RSpec.describe UsersController, type: :request do
         user1 = create(:user)
         get "/users/#{user1.id}", headers: authenticated_header(user)
 
-        expect(last_response).to include_json(UserSerializer.new(user1).as_json)
+        expect(last_response).to include_json(UserSerializer.new(user).as_json)
       end
 
       it 'should return user' do

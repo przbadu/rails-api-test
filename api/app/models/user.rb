@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
   has_many :inverse_friends, through: :inverse_friendships, source: :user
-
+  
   def accept_friend_request!(friend_id)
     friendship = self.inverse_friendships.find_by(user_id: friend_id)
     friendship.accepted! unless friendship.blank?
