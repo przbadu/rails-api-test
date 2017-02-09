@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user, except: :create
+  before_action :authenticate_user, except: [:index, :create]
+
+  def index
+    @users = User.all
+    render json: @users, each_serializer: UserSerializer
+  end
   
   def show
     render json: current_user
